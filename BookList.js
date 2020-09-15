@@ -17,6 +17,10 @@ class BookList extends Component{
         window.localStorage.removeItem("bookNo")
         this.props.history.push("/add-book")
       }
+
+    componentDidMount(){
+      
+    }
     
     editBook(){
 

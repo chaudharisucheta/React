@@ -1,12 +1,20 @@
 import React,{ Component } from 'react'
 import './AddBook.css';
 import ApiService from '../service/ApiService'
+//import {DropDownList} from '@progress/kendo-react-dropdowns'
+import Select from 'react-select'
+
 
 
 class AddBook extends Component{
-
-    constructor(){
+  choices=[
+    {value : 'read',label:'Read'},
+    {value : 'reading',label:'Reading'},
+    {value : 'completed',label:'Completed'}]
+    
+      constructor(){
       super();
+      
       this.state={
         bookNo:"",
         bookName:"",
@@ -16,13 +24,20 @@ class AddBook extends Component{
         price:"",
         status:"",
         rating:"",
-        message:""
+        message:"",
       }
-
     }
+
+   
 
     onChange=event=>{
       this.setState({[event.target.name]:event.target.value}) 
+    }
+
+    handleChange=(status)=>{
+      //this.setState({[status.target.name]:status.target.value})
+      this.setState({status:status.value})
+      console.log(`Option selected:`, status.value);
     }
 
     saveBook=e=>{
@@ -45,15 +60,15 @@ class AddBook extends Component{
 
     render(){
         return(
-        <div className="container">
+      <div className="container">
         <form>
         <h1 className="h1">Add Book</h1>
 
         <label  className="label">Book No</label>
-        <input type="text" id="bno" name="bookNo" className="form-control" value={this.state.bookNo} onChange={this.onChange}/><br/>
+        <input type="text" id="bookNo" name="bookNo" className="input" value={this.state.bookNo} onChange={this.onChange}/><br/>
 
         <label  className="label">Book Name</label>
-        <input type="text" id="bname" name="bookName" className="input" value={this.state.bookName} onChange={this.onChange}/><br/>
+        <input type="text" id="bookName" name="bookName" className="input" value={this.state.bookName} onChange={this.onChange}/><br/>
         
         <label  className="label">Author</label>
         <input type="text" id="bauth" name="author" className="input" value={this.state.author} onChange={this.onChange}/><br/>
@@ -67,24 +82,24 @@ class AddBook extends Component{
         <label  className="label">Price</label>
         <input type="text" id="bprice" name="price" className="input" value={this.state.price} onChange={this.onChange}/><br></br>
 
-      <label className="label">Status</label>
-        <select id="status" name="status" className="input" value={this.state.status} onChange={this.onChange}>
-          <option value="Read">Read</option>
-          <option value="Reading">Reading</option>
-          <option value="Completed">Completed</option>
-        </select><br/><br/>
+        <label className="label">Status</label>
+        <Select name="status" options={this.choices} onChange={this.handleChange}/>
+        <br></br>
+        
           
         <label  className="label">Rating(out of 5)</label>
-        <input type="text" id="rating" name="rating" className="input" value={this.state.rating} onChange={this.onChange}/><br>
-        </br><br/>
+        <input type="text" id="rating" name="rating" className="input" value={this.state.rating} onChange={this.onChange}/>
+        <br></br>
 
         <input type="button" value="Submit" className="button" onClick={this.saveBook}/>
+        <br></br>
+        
+    </form>
 
-        </form>
-
-      </div>
+    </div>
         )
     }
 }
 
-export default AddBook;
+
+export default AddBook
