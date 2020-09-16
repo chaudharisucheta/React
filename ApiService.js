@@ -10,6 +10,15 @@ class ApiService{
     fetchBooks(){
         return axios.get(USER_BASE_URL+'/getallbooks')
     }
+
+    editBook(book){
+        return axios.put(USER_BASE_URL+'/updatebook')
+        
+    }
+
+    getBookById(bookNo){
+        return axios.get(USER_BASE_URL+'/getbook'+bookNo)
+    }
 }
 
 export default new ApiService();

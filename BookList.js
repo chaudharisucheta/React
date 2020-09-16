@@ -1,4 +1,5 @@
 import React,{ Component } from 'react';
+import ApiService from '../service/ApiService';
 import './BookList.css';
 
 class BookList extends Component{
@@ -19,11 +20,19 @@ class BookList extends Component{
       }
 
     componentDidMount(){
-      
+      this.loadBookList()
+    }
+
+    loadBookList(){
+      ApiService.fetchBooks()
+        .then(response=>{
+          this.setState({books:response.data.result})
+        })
     }
     
-    editBook(){
-
+    editBook(bookNo){
+        window.localStorage.setItem("bookNo",bookNo)
+        this.props.history.push("/edit-book")
     }
 
     deleteBook(){
